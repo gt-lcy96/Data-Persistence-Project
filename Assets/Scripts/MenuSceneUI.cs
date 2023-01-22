@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuSceneUI : MonoBehaviour
 {
-    public string nameInput;
+    public static string nameInput;
     // Start is called before the first frame update
     void Start()
     {
