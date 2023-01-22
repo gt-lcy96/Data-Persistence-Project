@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuSceneUI : MonoBehaviour
 {
@@ -21,5 +22,10 @@ public class MenuSceneUI : MonoBehaviour
     {
         nameInput = s;
         Debug.Log(nameInput);
+    }
+
+    public void StartNew()
+    {
+        SceneManager.LoadScene(1);
     }
 }
