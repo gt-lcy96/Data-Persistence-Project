@@ -11,21 +11,18 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
-    public Text BestScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
     private int m_Points;
     
     private bool m_GameOver = false;
-    private BestScore bestScore;
-    private string json_file;
+    [SerializeField] Text BestScoreText;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        json_file = Application.persistentDataPath + "/save_data.json";
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -65,8 +62,7 @@ public class MainManager : MonoBehaviour
             }
         }
 
-
-        UpdateBestScoreText();
+        ScoreManager.Instance.UpdateText(m_Points, BestScoreText);
     }
 
     void AddPoint(int point)
@@ -79,49 +75,7 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-    }
-
-    public void UpdateBestScoreText()
-    {
-        BestScore bestScore = LoadScore();
-        if(m_Points > bestScore.score)
-        {
-            SaveScore();
-        }
-        BestScoreText.text = $"Best Score : {bestScore.name} : {bestScore.score}";
-    }
-
-    [System.Serializable]
-    public class BestScore
-    {
-        public int score = 0;
-        public string name = " ";
-        public int order = 1;
-    }
-
-    public void SaveScore()
-    {
-        BestScore data = new BestScore();
-        data.name = MenuSceneUI.nameInput;
-        data.score = m_Points;
         
-        string json = JsonUtility.ToJson(data);
-        File.WriteAllText(json_file , json);
-
     }
 
-    public BestScore LoadScore()
-    {
-        
-        if(File.Exists(json_file)) 
-        {
-            string json = File.ReadAllText(json_file);
-            BestScore data = JsonUtility.FromJson<BestScore>(json);
-            return data;
-        } else {
-            return new BestScore();
-        }
-
-
-    }
 }
