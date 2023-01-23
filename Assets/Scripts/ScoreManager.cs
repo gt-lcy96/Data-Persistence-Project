@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
-
+using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     private string json_file;
@@ -65,7 +65,7 @@ public class ScoreManager : MonoBehaviour
 
     }
 
-    public void UpdateText(int currentScore, Text textUI)
+    public void UpdateText(int currentScore, TextMeshProUGUI textUI)                                       
     {
         BestScore bestScore = LoadScore();
         if (currentScore > bestScore.score)
